@@ -28,8 +28,6 @@ function App() {
   const [fetched, setFetched] = useState(false);
 
   const dataLoadedStatus = useSelector((state) => state.dataStatusReducer);
-
-  console.log("dataLoadedStatus", dataLoadedStatus);
   const termArray = useSelector((state) => state.wordReducer.data);
 
   console.log(termArray);
@@ -44,28 +42,20 @@ function App() {
   };
 
   useEffect(() => { 
-
     if (!dataLoadedStatus) {
       console.log("loading data");
-      dispatch(loadData());
+      try {
+        showLoader();
+        dispatch(loadData()).then(hideLoader())
+      }
+      catch{
+        console.log("huh")
+
+      }
+
+      
     }
-
-  
-    // const fetchData = async () => {
-    //   showLoader();
-    //   const termData = await axios.get(`http://127.0.0.1:8000/api/`);
-    //   setTermArray(termData.data);
-    //   setFetched(true);
-    // };
-
-    // const runFetchData = async () => {
-    //   if (!fetched) {
-    //     fetchData();
-    //   } else {
-    //     hideLoader();
-    //   }
-    // };
-    // runFetchData();
+ 
   }, [fetched]);
 
   const onChangeHandler = (text) => {

@@ -5,14 +5,14 @@ import { Divider } from "@material-ui/core";
 import useStyles from "../style/TermDetailStyle";
 
 function TermDetail() {
+  console.log("you are now in term details page")
   const location = useLocation(); 
   const classes = useStyles();
-  const data = location.state.translation;
-  console.log(data)
+  const data = location.state.translation; 
 
   return (
 
-    <div className="TermDetail">
+    <div >
       <div className={classes.detailContainer}>
         <Typography className={classes.koreanTerm}>{data.original_term} - {data.english} </Typography>
         <Divider />
