@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -15,9 +14,8 @@ import { TextField } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import useFullPageLoader from "./components/useFullPageLoader";
-import Test from "./components/Test";
 import { useSelector, useDispatch } from "react-redux";
-import { loadData} from "./reducers/wordReducer";
+import { loadData, wordReducer } from "./reducers/wordReducer";
 
 function App() {
   // let [termArray, setTermArray] = useState([]);
@@ -27,10 +25,14 @@ function App() {
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const classes = useStyles();
   const history = useHistory();
-  const [fetched, setFetched] = useState(false); 
+  const [fetched, setFetched] = useState(false);
 
-  const termArray= useSelector(state=>state.data) 
+  const dataLoadedStatus = useSelector((state) => state.dataStatusReducer);
 
+  console.log("dataLoadedStatus", dataLoadedStatus);
+  const termArray = useSelector((state) => state.wordReducer.data);
+
+  console.log(termArray);
   const dispatch = useDispatch();
 
   const handleSubmit = (translation) => {
@@ -41,23 +43,30 @@ function App() {
     });
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     showLoader();
-  //     const termData = await axios.get(`http://127.0.0.1:8000/api/`);
-  //     setTermArray(termData.data);
-  //     setFetched(true);
-  //   };
+  useEffect(() => { 
 
-  //   const runFetchData = async () => {
-  //     if (!fetched) {
-  //       fetchData();
-  //     } else {
-  //       hideLoader();
-  //     }
-  //   };
-  //   runFetchData();
-  // }, [fetched]);
+    if (!dataLoadedStatus) {
+      console.log("loading data");
+      dispatch(loadData());
+    }
+
+  
+    // const fetchData = async () => {
+    //   showLoader();
+    //   const termData = await axios.get(`http://127.0.0.1:8000/api/`);
+    //   setTermArray(termData.data);
+    //   setFetched(true);
+    // };
+
+    // const runFetchData = async () => {
+    //   if (!fetched) {
+    //     fetchData();
+    //   } else {
+    //     hideLoader();
+    //   }
+    // };
+    // runFetchData();
+  }, [fetched]);
 
   const onChangeHandler = (text) => {
     let matches = [];
@@ -117,7 +126,7 @@ function App() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {termArray.map((row) => {
+            {termArray && termArray.map((row) => {
               return (
                 <TableRow key={row.term}>
                   <TableCell align="center">

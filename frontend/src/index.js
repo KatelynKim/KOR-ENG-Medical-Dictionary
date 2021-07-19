@@ -8,10 +8,10 @@ import Header from "./components/Header";
 import CategoryList from "./components/CategoryList";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import { wordReducer } from "./reducers/wordReducer";
+import allReducers from "./reducers/allReducers"
 import thunk from "redux-thunk";
 
-let store = createStore(wordReducer, applyMiddleware(thunk));
+let store = createStore(allReducers, applyMiddleware(thunk));
 
 // store.subscribe(() => console.log(store.getState()));
 
