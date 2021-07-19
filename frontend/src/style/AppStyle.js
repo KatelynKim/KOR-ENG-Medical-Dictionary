@@ -67,7 +67,24 @@ const useStyles = makeStyles((theme) => ({
     bottom:"5%",
     right:"5%",
     backgroundColor:"#E07A5F"
+  },
+
+  test:{
+    position:"absolute",
+    width:"100%",
+    height:"10%",
+    backgroundColor:"yellow",
+    bottom:"0",
+    left:"0"
+  },
+
+  button:{
+    position:"absolute",
+    backgroundColor:"red",
+    bottom:"0",
+    left:"0"
   }
+
 }));
 
 export default useStyles;

@@ -7,12 +7,11 @@ import useStyles from "../style/TermDetailStyle";
 function TermDetail() {
   const location = useLocation(); 
   const classes = useStyles();
-
   const data = location.state.translation;
-
-  console.log(data);
+  console.log(data)
 
   return (
+
     <div className="TermDetail">
       <div className={classes.detailContainer}>
         <Typography className={classes.koreanTerm}>{data.original_term} - {data.english} </Typography>

@@ -15,48 +15,49 @@ import { TextField } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import useFullPageLoader from "./components/useFullPageLoader";
+import Test from "./components/Test";
+import { useSelector, useDispatch } from "react-redux";
+import { loadData} from "./reducers/wordReducer";
 
 function App() {
-  let [termArray, setTermArray] = useState([]);
+  // let [termArray, setTermArray] = useState([]);
   let [text, setText] = useState([]);
   let [suggestions, setSuggestions] = useState([]);
 
-  const [dataID, setDataID] = useState(0);
-  const [open, setOpen] = React.useState(false);
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const classes = useStyles();
   const history = useHistory();
-  const [fetched, setFetched] = useState(false);
+  const [fetched, setFetched] = useState(false); 
+
+  const termArray= useSelector(state=>state.data) 
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (translation) => {
+    console.log("a word has been clicked");
     history.push({
       pathname: `termdetail/${translation.english}`,
       state: { translation: translation },
     });
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      showLoader();
-      console.log("Currently fetching data")
-      const termData = await axios.get(`http://127.0.0.1:8000/api/`);
-      setTermArray(termData.data);
-      setFetched(true);
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     showLoader();
+  //     const termData = await axios.get(`http://127.0.0.1:8000/api/`);
+  //     setTermArray(termData.data);
+  //     setFetched(true);
+  //   };
 
-    const runFetchData = async () => {
-      console.log("FETCHED?", fetched)
-      if (!fetched){
-        await fetchData();
-      } else{
-        hideLoader();
-      }
-    }
-    runFetchData();
-
-  }, [fetched]);
-
-  
+  //   const runFetchData = async () => {
+  //     if (!fetched) {
+  //       fetchData();
+  //     } else {
+  //       hideLoader();
+  //     }
+  //   };
+  //   runFetchData();
+  // }, [fetched]);
 
   const onChangeHandler = (text) => {
     let matches = [];
@@ -107,7 +108,7 @@ function App() {
           ))}
       </div>
 
-      <TableContainer component={Paper} class={classes.table}>
+      <TableContainer component={Paper} className={classes.table}>
         <Table size="small">
           <TableHead>
             <TableRow className={classes.row}>
@@ -139,9 +140,11 @@ function App() {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <Fab className={classes.addButton}>
-        <AddIcon />
-      </Fab> */}
+      <button className={classes.button} onClick={() => dispatch(loadData())}>
+        {" "}
+        hey
+      </button>
+
       {loader}
     </div>
   );
