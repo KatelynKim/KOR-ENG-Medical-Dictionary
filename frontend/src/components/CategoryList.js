@@ -12,14 +12,14 @@ const CategoryList = () => {
           <Link className={classes.link} to="/home">Home</Link>
         </li>
         <li className={classes.categoryListItem}>
-          <Link className={classes.link}> Saved </Link>
+          <Link className={classes.link} to="/home"> Saved </Link>
         </li>
         <li className={classes.categoryListItem}> 
-          <Link className={classes.link}>Categories</Link> 
+          <Link className={classes.link} to="/categories">Categories</Link> 
         </li>
 
         <li className={classes.categoryListItem}> 
-          <Link className={classes.link}>Translator Forum</Link> 
+          <Link className={classes.link} to="/home">Translator Forum</Link> 
         </li>
  
       </ul>

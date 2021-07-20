@@ -13,7 +13,8 @@ import TermDetail from "./components/TermDetail";
 import { 
   routerMiddleware,
 } from "connected-react-router"; 
-import history from "./components/history";
+import history from "./components/history"; 
+import CategoryPage from "./components/CategoryPage"
 
 const middleware = [thunk, routerMiddleware(history)];
  
@@ -26,7 +27,8 @@ const routing = (
         <CategoryList></CategoryList>
         <Switch>
           <Route exact path="/home" component={App} />
-          <Route path="/termdetail/:term" component={TermDetail} />
+          <Route path="/termdetail/:term" component={TermDetail} /> 
+          <Route path="/categories" component={CategoryPage} /> 
         </Switch> 
     </Router>
   </Provider>

@@ -42,7 +42,6 @@ function App() {
   useEffect(() => {
     if (!dataLoadedStatus) {
       try {
-        setLoading(true);
         dispatch(loadData());
       } catch {
         console.log("Data could not be loaded");
@@ -98,16 +97,6 @@ function App() {
             </div>
           ))}
       </div>
-    
-      {/* {termArray ? (
-        termArray
-      ) : (
-        <Backdrop open>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      )} */}
-
-
 
       <TableContainer component={Paper} className={classes.table}>
         <Table size="small">

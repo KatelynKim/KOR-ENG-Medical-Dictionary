@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
-from dictionary.models import Term, EnglishTerm
-from .serializers import TermSerializer, TranslationSerializer
+from dictionary.models import Term, EnglishTerm, Category
+from .serializers import TermSerializer, TranslationSerializer, CategorySerializer
 
 
 # Create your views here.
@@ -18,6 +18,10 @@ class TermDetail(generics.RetrieveDestroyAPIView):
 class Translation(generics.RetrieveDestroyAPIView):
     queryset = EnglishTerm.translationObjects.all()
     serializer_class = TranslationSerializer
+
+class CategoryList(generics.ListCreateAPIView):
+    queryset = Category.objects.all().order_by('name')
+    serializer_class = CategorySerializer
 
 
 

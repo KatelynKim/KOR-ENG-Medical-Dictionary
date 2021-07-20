@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from dictionary.models import Term, EnglishTerm
+from dictionary.models import Term, EnglishTerm, Category
 import nltk
 import urllib
 import bs4 as bs
@@ -39,6 +39,11 @@ class TranslationSerializer(serializers.ModelSerializer):
                 text += paragraph.text
 
             return text
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('__all__')
 
 
 class TermSerializer(serializers.ModelSerializer):
