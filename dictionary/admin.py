@@ -5,7 +5,7 @@ from . import models
 
 @admin.register(models.Term)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'term', 'category', 'published')
+    list_display = ('id', 'term', 'published')
     prepopulated_fields = {'slug': ('term',),}
 
 @admin.register(models.EnglishTerm)

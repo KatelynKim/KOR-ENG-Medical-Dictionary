@@ -11,21 +11,19 @@ import Typography from "@material-ui/core/Typography";
 import { useHistory } from "react-router-dom";
 import useStyles from "./style/AppStyle";
 import { TextField } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
 import useFullPageLoader from "./components/useFullPageLoader";
 import { useSelector, useDispatch } from "react-redux";
-import { loadData, wordReducer } from "./reducers/wordReducer";
-
+import { loadData } from "./reducers/wordReducer";
+import { Backdrop } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 function App() {
-  // let [termArray, setTermArray] = useState([]);
   let [text, setText] = useState([]);
   let [suggestions, setSuggestions] = useState([]);
 
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const classes = useStyles();
   const history = useHistory();
-  const [fetched, setFetched] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const dataLoadedStatus = useSelector((state) => state.dataStatusReducer);
   const termArray = useSelector((state) => state.wordReducer.data);
@@ -41,22 +39,16 @@ function App() {
     });
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     if (!dataLoadedStatus) {
-      console.log("loading data");
       try {
-        showLoader();
-        dispatch(loadData()).then(hideLoader())
+        setLoading(true);
+        dispatch(loadData());
+      } catch {
+        console.log("Data could not be loaded");
       }
-      catch{
-        console.log("huh")
-
-      }
-
-      
     }
- 
-  }, [fetched]);
+  });
 
   const onChangeHandler = (text) => {
     let matches = [];
@@ -106,6 +98,16 @@ function App() {
             </div>
           ))}
       </div>
+    
+      {/* {termArray ? (
+        termArray
+      ) : (
+        <Backdrop open>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      )} */}
+
+
 
       <TableContainer component={Paper} className={classes.table}>
         <Table size="small">
@@ -116,26 +118,27 @@ function App() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {termArray && termArray.map((row) => {
-              return (
-                <TableRow key={row.term}>
-                  <TableCell align="center">
-                    <Typography> {row.term}</Typography>
-                  </TableCell>
-                  <TableCell align="left">
-                    {row.translations.map((translation, i) => (
-                      <Typography
-                        key={i}
-                        onClick={() => handleSubmit(translation)}
-                        className={classes.translated}
-                      >
-                        {translation.english}
-                      </Typography>
-                    ))}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {termArray &&
+              termArray.map((row) => {
+                return (
+                  <TableRow key={row.term}>
+                    <TableCell align="center">
+                      <Typography> {row.term}</Typography>
+                    </TableCell>
+                    <TableCell align="left">
+                      {row.translations.map((translation, i) => (
+                        <Typography
+                          key={i}
+                          onClick={() => handleSubmit(translation)}
+                          className={classes.translated}
+                        >
+                          {translation.english}
+                        </Typography>
+                      ))}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </TableContainer>
@@ -144,7 +147,7 @@ function App() {
         hey
       </button>
 
-      {loader}
+      {/* {loader} */}
     </div>
   );
 }

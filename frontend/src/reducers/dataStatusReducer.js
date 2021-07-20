@@ -1,4 +1,4 @@
-import { SET_DATA, setData, SET_DATA_LOADED_TRUE } from "../actions/actions";  
+import { SET_DATA_LOADED_TRUE } from "../actions/actions";  
 
 export const dataStatusReducer = (state = false, action)=>{
     switch (action.type){

@@ -15,6 +15,7 @@ export const loadData = () =>async (dispatch, getState) => {
   const data = await fetch("http://127.0.0.1:8000/api/").then((res) =>
     res.json() 
   ); 
+  console.log(data)
   dispatch(setData(data));
   dispatch(setDataLoadedTrue()); 
 

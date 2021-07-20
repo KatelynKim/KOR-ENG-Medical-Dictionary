@@ -10,50 +10,25 @@ import { Provider } from "react-redux";
 import allReducers from "./reducers/allReducers";
 import thunk from "redux-thunk";
 import TermDetail from "./components/TermDetail";
-import {
-  ConnectedRouter,
-  connectRouter,
+import { 
   routerMiddleware,
-} from "connected-react-router";
-import createHistory from "history/createBrowserHistory";
-import { createBrowserHistory } from "history";
+} from "connected-react-router"; 
 import history from "./components/history";
 
 const middleware = [thunk, routerMiddleware(history)];
-
-// let store = createStore(
-//   connectRouter(history)(allReducers),
-//   applyMiddleware(routerMiddleware(history), thunk)
-// );
+ 
 
 let store = createStore(allReducers, applyMiddleware(...middleware));
 const routing = (
-  <Provider store={store}>
-    {/* <ConnectedRouter history={history}> */}
-
-    <Router history={history}>
-      <div>
+  <Provider store={store}> 
+    <Router history={history}> 
         <Header></Header>
         <CategoryList></CategoryList>
         <Switch>
           <Route exact path="/home" component={App} />
           <Route path="/termdetail/:term" component={TermDetail} />
-        </Switch>
-      </div>
+        </Switch> 
     </Router>
-    {/* </ConnectedRouter> */}
   </Provider>
-  // <Router>
-  //   <React.StrictMode>
-  //     <Header></Header>
-  //     <CategoryList></CategoryList>
-  //     <Switch>
-  //       <Provider store={store}>
-  //         <Route exact path="/home" component={App} />
-  //       </Provider>
-  //       <Route exact path="/termdetail/:term" to={TermDetail} />
-  //     </Switch>
-  //   </React.StrictMode>
-  // </Router>
 );
 ReactDOM.render(routing, document.getElementById("root"));

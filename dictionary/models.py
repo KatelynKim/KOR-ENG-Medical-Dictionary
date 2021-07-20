@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.fields.related import ManyToManyField
 from django.utils import timezone
 
 
@@ -22,9 +23,7 @@ class Term(models.Model):
         return self.term
 
     term = models.CharField(max_length=30, unique=True)
-    category = models.ForeignKey(
-        Category, on_delete=models.PROTECT, null=True, blank=True
-    )
+    category = models.ManyToManyField(Category)
     published = models.DateTimeField(default=timezone.now)
     slug = models.SlugField(max_length=30, blank=True)
     objects = models.Manager()
