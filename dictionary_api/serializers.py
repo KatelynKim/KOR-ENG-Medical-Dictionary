@@ -51,4 +51,4 @@ class TermSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Term
-        fields = ('id', 'term', 'translations')
+        fields = ('id', 'term', 'translations', 'category')

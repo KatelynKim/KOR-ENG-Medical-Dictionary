@@ -22,8 +22,7 @@ function App() {
 
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const classes = useStyles();
-  const history = useHistory();
-  const [loading, setLoading] = useState(false);
+  const history = useHistory();  
 
   const dataLoadedStatus = useSelector((state) => state.dataStatusReducer);
   const termArray = useSelector((state) => state.wordReducer.data);

@@ -2,7 +2,7 @@ import useStyles from "../style/CategoryListStyle";
 import { Link } from "react-router-dom";
 import { Divider } from "@material-ui/core"; 
 
-const CategoryList = () => {
+const Menu = () => {
   const classes = useStyles();
 
   return (
@@ -28,4 +28,4 @@ const CategoryList = () => {
   );
 };
 
-export default CategoryList;
+export default Menu;
